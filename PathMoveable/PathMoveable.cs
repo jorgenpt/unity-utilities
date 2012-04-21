@@ -111,7 +111,8 @@ public class PathMoveable : MonoBehaviour
 		}
 
 		currentPath = path;
-		if (path.StartNode == null)
+		// For some reason, it sometimes gives us direct paths that go via an arbitrary waypoint.
+		if (path.StartNode == null || GetComponent<Navigator> ().DirectPath (path.EndPosition))
 		{
 			currentWaypoint = null;
 			currentDestination = path.EndPosition;
