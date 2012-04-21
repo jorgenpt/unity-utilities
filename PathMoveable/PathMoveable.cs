@@ -144,7 +144,7 @@ public class PathMoveable : MonoBehaviour
 
 	void OnPathInvalidated (Path path)
 	{
-		Debug.Log ("The path from " + path.StartNode + " to " + path.EndNode + " is no longer valid.");
+		Debug.Log ("The path is no longer valid.");
 		if (path == currentPath)
 		{
 			// Try to recalculate the path.
