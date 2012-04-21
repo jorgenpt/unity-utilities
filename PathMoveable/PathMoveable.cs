@@ -35,7 +35,7 @@ public class PathMoveable : MonoBehaviour
 	public bool shouldIgnoreHeightOfDestination = true;
 
 	// If we're less than this many seconds from arriving at a destination, we say it's good enough.
-	const float remainingDistanceTolerance = 0.1f;
+	public float remainingDistanceTolerance = 0.05f;
 
 	// State about current destination, currentPath == null means we're not moving anywhere.
 	Path currentPath;
