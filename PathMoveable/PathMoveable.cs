@@ -158,3 +158,5 @@ public class PathMoveable : MonoBehaviour
 			currentPath.OnDrawGizmos ();
 	}
 }
+
+// vim: set noexpandtab sw=8 sts=8 ts=8:
