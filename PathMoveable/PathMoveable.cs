@@ -26,7 +26,8 @@ using System.Collections;
 
 [RequireComponent (typeof (CharacterController))]
 [RequireComponent (typeof (Navigator))]
-public class PathMoveable : MonoBehaviour {
+public class PathMoveable : MonoBehaviour
+{
 	// Units per second.
 	public float speed = 10f;
 
@@ -41,7 +42,8 @@ public class PathMoveable : MonoBehaviour {
 	Waypoint currentWaypoint;
 	Vector3 currentDestination;
 
-	void Update () {
+	void Update ()
+	{
 		if (currentPath != null)
 		{
 			Vector3 toDestination = (currentDestination - transform.position);
@@ -84,7 +86,8 @@ public class PathMoveable : MonoBehaviour {
 	}
 
 	// Move to a given position.
-	public void StartMovingTo (Vector3 position) {
+	public void StartMovingTo (Vector3 position)
+	{
 		if (shouldIgnoreHeightOfDestination)
 			position.y = transform.position.y;
 
@@ -92,12 +95,14 @@ public class PathMoveable : MonoBehaviour {
 	}
 
 	// Stop moving completely.
-	public void StopMoving () {
+	public void StopMoving ()
+	{
 		GetComponent<Navigator> ().targetPosition = transform.position;
 		currentPath = null;
 	}
 
-	void OnNewPath (Path path) {
+	void OnNewPath (Path path)
+	{
 		if (path == null)
 		{
 			Debug.Log ("OnNewPath(null), stopping movement.");
