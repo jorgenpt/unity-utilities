@@ -28,9 +28,6 @@ using System.Collections;
 [RequireComponent (typeof (Navigator))]
 public class PathMoveable : MonoBehaviour
 {
-	// Units per second.
-	public float speed = 10f;
-
 	// Whether or not we ignore the y component (height) of incoming 'move' requests.
 	public bool shouldIgnoreHeightOfDestination = true;
 
@@ -42,12 +39,16 @@ public class PathMoveable : MonoBehaviour
 	Waypoint currentWaypoint;
 	Vector3 currentDestination;
 
+	// You can override this in a subclass, see EditorSpeedMoveable.
+	protected virtual float GetSpeed() { return 10f; }
+
 	void Update ()
 	{
 		if (currentPath != null)
 		{
 			Vector3 toDestination = (currentDestination - transform.position);
 			toDestination.y = 0f;
+			float speed = GetSpeed();
 
 			if (Vector3.Distance (transform.position, currentPath.EndPosition) < remainingDistanceTolerance * speed)
 				StopMoving ();

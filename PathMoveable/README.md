@@ -12,7 +12,9 @@ the game object you want to move:
 
  1. Add `CharacterController` (This is built-in in Unity)
  1. Add `Navigator` (This is a part of Path)
- 1. Add `PathMoveable` (From this directory)
+ 1. Add `PathMoveable` (From this directory. You can also add
+    `EditorSpeedMoveable` which is a subclass that allows you to set the
+    movement speed in the editor via a public field.)
 
 When this is done, configure the components as you usually would. You can control the object in one of two ways:
 
