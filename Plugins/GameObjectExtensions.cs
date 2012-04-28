@@ -27,6 +27,23 @@ namespace ExtensionMethods
 
 			return bounds;
 		}
+
+		public static Bounds GetEncapsulatingLocalBounds (this GameObject go)
+		{
+			Bounds bounds = new Bounds (Vector3.zero, Vector3.zero);
+			MeshFilter mf = go.GetComponent<MeshFilter> ();
+			if (mf != null && mf.sharedMesh != null)
+				bounds = mf.sharedMesh.bounds;
+			else if (go.renderer is SkinnedMeshRenderer)
+				bounds = ((SkinnedMeshRenderer)go.renderer).localBounds;
+
+			foreach (MeshFilter m in go.GetComponentsInChildren<MeshFilter> ())
+				bounds.Encapsulate (m.sharedMesh.bounds);
+			foreach (SkinnedMeshRenderer m in go.GetComponentsInChildren<SkinnedMeshRenderer> ())
+				bounds.Encapsulate (m.localBounds);
+
+			return bounds;
+		}
 	}
 }
 
