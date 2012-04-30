@@ -16,14 +16,14 @@ namespace ExtensionMethods
 
 		public static Bounds GetEncapsulatingBounds (this GameObject go)
 		{
-			Bounds bounds = new Bounds (Vector3.zero, Vector3.zero);
-			if (go.renderer != null)
-				bounds = go.renderer.bounds;
-
-			foreach (Renderer r in go.GetComponentsInChildren<Renderer> ())
-			{
-				bounds.Encapsulate (r.bounds);
-			}
+			Renderer[] renderers = go.GetComponentsInChildren<Renderer> ();
+	
+			if (renderers.Length == 0)
+				return new Bounds (Vector3.zero, Vector3.zero);
+			
+			Bounds bounds = renderers[0].bounds;
+			for (int i = 1; i < renderers.Length; ++i)
+				bounds.Encapsulate (renderers[i].bounds);
 
 			return bounds;
 		}
