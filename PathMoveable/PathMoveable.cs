@@ -44,11 +44,11 @@ public class PathMoveable : MonoBehaviour
 
 	// We use to make sure we "fall" to the ground even if we stop moving.
 	bool isGrounded = false;
-
+	
 	void Update ()
 	{
 		CharacterController controller = (CharacterController)collider;
-		if (currentPath != null)
+		if (IsMoving ())
 		{
 			Vector3 toDestination = (currentDestination - transform.position);
 			toDestination.y = 0f;
@@ -166,8 +166,13 @@ public class PathMoveable : MonoBehaviour
 
 	void OnDrawGizmos ()
 	{
-		if (currentPath != null)
+		if (IsMoving ())
 			currentPath.OnDrawGizmos ();
+	}
+
+	public bool IsMoving ()
+	{
+		return currentPath != null;
 	}
 }
 
