@@ -42,9 +42,13 @@ public class PathMoveable : MonoBehaviour
 	// You can override this in a subclass, see EditorSpeedMoveable.
 	protected virtual float GetSpeed() { return 10f; }
 
-	// We use to make sure we "fall" to the ground even if we stop moving.
+	// We use this to make sure we "fall" to the ground even if we stop moving.
 	bool isGrounded = false;
-	
+
+	// We use these to ensure that we stop moving if we're stuck.
+	float movedDistanceSince;
+	double movedDistance;
+
 	void Update ()
 	{
 		CharacterController controller = (CharacterController)collider;
@@ -60,7 +64,21 @@ public class PathMoveable : MonoBehaviour
 				ArrivedAtDestination ();
 			else
 			{
+				Vector3 oldPosition = transform.position;
 				isGrounded = controller.SimpleMove (toDestination.normalized * speed);
+
+				// Test to see if we're stuck.
+				movedDistance += Vector3.Distance(transform.position, oldPosition);
+				float nowTime = Time.time;
+				float elapsedTime = nowTime - movedDistanceSince;
+				if (elapsedTime > 1f)
+				{
+					if (movedDistance < speed * elapsedTime / 10f)
+						StopMoving ();
+
+					movedDistance = 0f;
+					movedDistanceSince = nowTime;
+				}
 			}
 		}
 		else if (!isGrounded)
@@ -120,6 +138,9 @@ public class PathMoveable : MonoBehaviour
 			StopMoving ();
 			return;
 		}
+
+		movedDistanceSince = Time.time;
+		movedDistance = 0f;
 
 		currentPath = path;
 		// For some reason, it sometimes gives us direct paths that go via an arbitrary waypoint.
