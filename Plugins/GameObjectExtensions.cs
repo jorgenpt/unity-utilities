@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Linq;
 
 namespace ExtensionMethods
 {
@@ -14,18 +15,27 @@ namespace ExtensionMethods
 			return mask;
 		}
 
-		public static Bounds GetEncapsulatingBounds (this GameObject go)
+		public static Bounds GetEncapsulatingBounds (this GameObject go, LayerMask mask)
 		{
-			Renderer[] renderers = go.GetComponentsInChildren<Renderer> ();
+			var renderers =
+				from r in go.GetComponentsInChildren<Renderer> ()
+					where (mask & r.gameObject.layer) != 0
+					select r;
 	
-			if (renderers.Length == 0)
+			if (renderers.Count () == 0)
 				return new Bounds (Vector3.zero, Vector3.zero);
-			
-			Bounds bounds = renderers[0].bounds;
-			for (int i = 1; i < renderers.Length; ++i)
-				bounds.Encapsulate (renderers[i].bounds);
+
+			Bounds bounds = renderers.First ().bounds;
+			renderers = renderers.Skip (1);
+			foreach (var renderer in renderers)
+				bounds.Encapsulate (renderer.bounds);
 
 			return bounds;
+		}
+
+		public static Bounds GetEncapsulatingBounds (this GameObject go)
+		{
+			return go.GetEncapsulatingBounds (~0);
 		}
 
 		public static Bounds GetEncapsulatingLocalBounds (this GameObject go)
