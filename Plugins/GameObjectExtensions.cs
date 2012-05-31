@@ -38,6 +38,21 @@ namespace ExtensionMethods
 			return go.GetEncapsulatingBounds (~0);
 		}
 
+		public static bool IsAnyPartVisible (this GameObject go, LayerMask mask)
+		{
+			var renderers =
+				from r in go.GetComponentsInChildren<Renderer> ()
+					where (mask & r.gameObject.layer) != 0 && r.isVisible
+					select r;
+
+			return renderers.Count () > 0;
+		}
+
+		public static bool IsAnyPartVisible (this GameObject go)
+		{
+			return go.IsAnyPartVisible (~0);
+		}
+
 		public static Bounds GetEncapsulatingLocalBounds (this GameObject go)
 		{
 			Bounds bounds = new Bounds (Vector3.zero, Vector3.zero);
