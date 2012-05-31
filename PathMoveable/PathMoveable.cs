@@ -24,6 +24,8 @@
 using UnityEngine;
 using System.Collections;
 
+#if !NO_PATH
+
 [RequireComponent (typeof (CharacterController))]
 [RequireComponent (typeof (Navigator))]
 public class PathMoveable : MonoBehaviour
@@ -196,5 +198,7 @@ public class PathMoveable : MonoBehaviour
 		return currentPath != null;
 	}
 }
+
+#endif
 
 // vim: set noexpandtab sw=8 sts=8 ts=8:

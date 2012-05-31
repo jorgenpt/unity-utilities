@@ -21,6 +21,8 @@
 using UnityEngine;
 using System.Collections;
 
+#if !NO_PATH
+
 // A subclass that allows you to set the speed in the editor.
 public class EditorSpeedMoveable : PathMoveable
 {
@@ -29,5 +31,7 @@ public class EditorSpeedMoveable : PathMoveable
 
 	protected override float GetSpeed() { return speed; }
 }
+
+#endif
 
 // vim: set noexpandtab sw=8 sts=8 ts=8:
