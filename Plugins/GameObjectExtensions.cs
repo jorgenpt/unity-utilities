@@ -5,12 +5,14 @@ namespace ExtensionMethods
 {
 	public static class GameObjectExtensions
 	{
+		/** Tells the server to unbuffer any RPCs for this object, and then calls Network.Destroy. */
 		public static void NetworkDestroyAndUnbuffer (this GameObject go)
 		{
 			go.networkView.RemoveRPCsOnServer ();
 			Network.Destroy (go);
 		}
 
+		/** Returns a LayerMask that covers this object and any children. */
 		public static int RecursiveLayerMask (this GameObject go)
 		{
 			LayerMask mask = 1 << go.layer;
@@ -20,6 +22,9 @@ namespace ExtensionMethods
 			return mask;
 		}
 
+		/** Returns Bounds that encapsulate this GameObject's renderer and
+		 * that of any children that match `mask`.
+		 */
 		public static Bounds GetEncapsulatingBounds (this GameObject go, LayerMask mask)
 		{
 			var renderers =
@@ -38,11 +43,15 @@ namespace ExtensionMethods
 			return bounds;
 		}
 
+		/** Same as GetEncapsulatingBounds, but include *all* children. */
 		public static Bounds GetEncapsulatingBounds (this GameObject go)
 		{
 			return go.GetEncapsulatingBounds (~0);
 		}
 
+		/** Check if this GameObject's renderer or any child renderer that matches `mask`
+		 * is currently visible on screen.
+		 */
 		public static bool IsAnyPartVisible (this GameObject go, LayerMask mask)
 		{
 			var renderers =
@@ -53,6 +62,7 @@ namespace ExtensionMethods
 			return renderers.Count () > 0;
 		}
 
+		/** Same as IsAnyPartVisible, but include *all* children. */
 		public static bool IsAnyPartVisible (this GameObject go)
 		{
 			return go.IsAnyPartVisible (~0);

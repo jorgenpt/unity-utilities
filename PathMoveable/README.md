@@ -37,6 +37,6 @@ If you have any problems, feel free to contact me at jorgenpt@gmail.com. If you
 find any bugs, please report them on the [issue tracker][issues].
 
 [charactercontroller]: http://unity3d.com/support/documentation/ScriptReference/CharacterController.html
-[path-navigator]: http://eej.dk/angryant/path/documentation/navigator/
-[path]: http://eej.dk/angryant/path/downloads/
+[path-navigator]: http://angryant.com/path/documentation/#Navigator
+[path]: http://angryant.com/path/download/
 [issues]: https://github.com/jorgenpt/unity-utilities/issues

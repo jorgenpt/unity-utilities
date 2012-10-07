@@ -5,6 +5,7 @@ namespace ExtensionMethods
 {
 	public static class LayerMaskExtensions
 	{
+		/** Return what layers are included in this LayerMask. */
 		public static List<int> GetLayers (this LayerMask layerMask)
 		{
 			var layers = new List<int> ();
