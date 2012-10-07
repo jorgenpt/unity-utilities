@@ -5,11 +5,16 @@ namespace ExtensionMethods
 {
 	public static class GameObjectExtensions
 	{
-		public static int RecursiveLayerMask(this GameObject go)
+		public static void NetworkDestroyAndUnbuffer (this GameObject go)
+		{
+			go.networkView.RemoveRPCsOnServer ();
+			Network.Destroy (go);
+		}
+
+		public static int RecursiveLayerMask (this GameObject go)
 		{
 			LayerMask mask = 1 << go.layer;
-			foreach (Transform t in go.transform)
-			{
+			foreach (Transform t in go.transform) {
 				mask |= t.gameObject.RecursiveLayerMask ();
 			}
 			return mask;
@@ -21,7 +26,7 @@ namespace ExtensionMethods
 				from r in go.GetComponentsInChildren<Renderer> ()
 					where (mask & r.gameObject.layer) != 0
 					select r;
-	
+
 			if (renderers.Count () == 0)
 				return new Bounds (Vector3.zero, Vector3.zero);
 
