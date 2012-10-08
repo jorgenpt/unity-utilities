@@ -23,6 +23,7 @@
 
 using UnityEngine;
 using System.Collections;
+using ExtensionMethods;
 
 #if !NO_PATH
 
@@ -56,8 +57,7 @@ public class PathMoveable : MonoBehaviour
 		CharacterController controller = (CharacterController)collider;
 		if (IsMoving ())
 		{
-			Vector3 toDestination = (currentDestination - transform.position);
-			toDestination.y = 0f;
+			Vector3 toDestination = (currentDestination - transform.position).WithY (0f);
 			float speed = GetSpeed();
 
 			if (Vector3.Distance (transform.position, currentPath.EndPosition) < remainingDistanceTolerance * speed)
