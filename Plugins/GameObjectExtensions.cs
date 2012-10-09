@@ -5,13 +5,6 @@ namespace ExtensionMethods
 {
 	public static class GameObjectExtensions
 	{
-		/** Tells the server to unbuffer any RPCs for this object, and then calls Network.Destroy. */
-		public static void NetworkDestroyAndUnbuffer (this GameObject go)
-		{
-			go.networkView.RemoveRPCsOnServer ();
-			Network.Destroy (go);
-		}
-
 		/** Returns a LayerMask that covers this object and any children. */
 		public static int RecursiveLayerMask (this GameObject go)
 		{
